@@ -2,7 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import serializers, status
-from levelupapi.models import Event, gamer
+from levelupapi.models import Event, event, gamer
 from levelupapi.models import Game
 from levelupapi.models import Gamer
 class EventView(ViewSet):
@@ -41,6 +41,11 @@ class EventView(ViewSet):
         event.save()
         game.save()
        
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+    
+    def destroy(self, request, pk):
+        event = Event.objects.get(pk=pk)
+        event.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
 
         
